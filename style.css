@@ -150,6 +150,9 @@ footer .copyright { margin-top: 50px; font-size: 0.9em; }
 }
 
 .btn-nav:hover {
+    background-color: #121212; /* Using our dark background color */
+    color: black;
     transform: translateY(-2px);
     box-shadow: 0 3px 10px rgba(0,0,0,0.2);
 }
+
