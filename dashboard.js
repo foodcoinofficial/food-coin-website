@@ -13,7 +13,7 @@ const CONFIG = {
     
     // Links for your buttons in the navbar and hero
     pumpFunLink: 'YOUR_PUMP_FUN_LINK', // Fill this in!
-    telegramLink: 'YOUR_TELEGRAM_LINK' // Fill this in!
+    twitterLink: 'https://x.com/foodcoinsolana' // Fill this in!
 };
 // --------------------
 
@@ -139,10 +139,10 @@ const setupLinks = () => {
         }
     });
 
-    const telegramButtons = document.querySelectorAll('a[href="YOUR_TELEGRAM_LINK"]');
-    telegramButtons.forEach(btn => {
-        if (CONFIG.telegramLink !== 'YOUR_TELEGRAM_LINK') {
-            btn.href = CONFIG.telegramLink;
+    const twitterButtons = document.querySelectorAll('a[href="https://x.com/foodcoinsolana"]');
+    twitterButtons.forEach(btn => {
+        if (CONFIG.twitterLink !== 'https://x.com/foodcoinsolana') {
+            btn.href = CONFIG.twitterLink;
         }
     });
 };
@@ -201,3 +201,4 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchAllData();
     setInterval(fetchAllData, 30000);
 });
+
