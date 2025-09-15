@@ -25,6 +25,14 @@ h1, h2, h3 {
     font-weight: 700;
 }
 
+h1, h2 {
+    background: linear-gradient(90deg, var(--primary-color), #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
 h2 {
     font-size: 2.5em;
     text-align: center;
@@ -35,6 +43,13 @@ h2 {
 section {
     padding: 80px 0;
 }
+
+.bg-dark {
+    background-color: var(--surface-color);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
 
 /* Navigation */
 nav {
@@ -167,53 +182,96 @@ nav .container {
     color: var(--text-muted);
 }
 
-<section id="roadmap" class="container">
-    <h2>Our Roadmap</h2>
-    <div class="roadmap-container">
-        
-        <div class="roadmap-phase completed">
-            <div class="phase-status">Phase 1: Foundation - COMPLETED</div>
-            <h3>Launch & Community Building</h3>
-            <ul>
-                <li>✅ Fair Launch on pump.fun</li>
-                <li>✅ Website & Socials Deployed</li>
-                <li>✅ Initial Community Growth</li>
-                <li>✅ Secure Charity Wallet</li>
-            </ul>
-        </div>
+/* Roadmap */
+#roadmap {
+    margin-bottom: 40px; /* Spacing fix */
+}
 
-        <div class="roadmap-phase active">
-            <div class="phase-status">Phase 2: Action - IN PROGRESS</div>
-            <h3>First Distribution Run</h3>
-            <ul>
-                <li>➡️ Reach $300 MC for Camera Fund</li>
-                <li>🔲 Purchase POV Camera & Equipment</li>
-                <li>🔲 Host First Live-Streamed Food Run</li>
-                <li>🔲 Post All Receipts for Transparency</li>
-            </ul>
-        </div>
+.roadmap-container {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+}
 
-        <div class="roadmap-phase">
-             <div class="phase-status">Phase 3: Growth - UPCOMING</div>
-            <h3>Scale & Expand</h3>
-            <ul>
-                <li>🔲 Expand to New Areas of the City</li>
-                <li>🔲 Partner with Local Restaurants</li>
-                <li>🔲 Launch Community Governance</li>
-                <li>🔲 CEX Listing Applications</li>
-            </ul>
-        </div>
-
-    </div>
-</section>
-
-/* Tokenomics & Transparency */
-.bg-dark {
+.roadmap-phase {
     background-color: var(--surface-color);
-    border-top: 1px solid var(--border-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 30px;
+    width: 30%;
+}
+
+.roadmap-phase h3 {
+    margin-top: 0;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.phase-status {
+    font-size: 0.8em;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 20px;
+    background-color: #333;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.roadmap-phase.completed .phase-status { background-color: #27ae60; color: #fff; }
+.roadmap-phase.active .phase-status { background-color: var(--primary-color); color: #121212; }
+
+.roadmap-phase ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.roadmap-phase li {
+    margin-bottom: 10px;
+}
+
+/* Funding Schedule Table */
+.schedule-intro {
+    text-align: center;
+    max-width: 700px;
+    margin: -20px auto 40px;
+    color: var(--text-muted);
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--surface-color);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 15px 20px;
+    text-align: left;
     border-bottom: 1px solid var(--border-color);
 }
 
+thead {
+    background-color: #2a2a2a;
+}
+
+th {
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-size: 0.8em;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Tokenomics & Transparency */
 .tokenomics-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -256,4 +314,3 @@ footer .copyright {
     margin-top: 50px;
     font-size: 0.9em;
 }
-
