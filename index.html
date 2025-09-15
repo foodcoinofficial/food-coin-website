@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Coin (FC) - A Solana Charity Project</title>
+    <title>Food Coin ($FC) - A Solana Project Designed to Feed the Hungry</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,8 +17,8 @@
             <div class="nav-links">
                 <a href="#dashboard">Dashboard</a>
                 <a href="#roadmap">Roadmap</a>
-                <a href="#funding-schedule">Schedule</a>
-                <a href="YOUR_TWITTER_LINK" target="_blank">Twitter</a>
+                <a href="#tokenomics">Tokenomics</a>
+                <a href="https://x.com/foodcoinsolana" target="_blank" rel="noopener noreferrer">Twitter</a>
             </div>
         </div>
     </nav>
@@ -40,22 +40,21 @@
         <section id="dashboard" class="container">
             <h2>Live Project Dashboard</h2>
             <div class="dashboard-grid">
-                <div class="metric-card">
+                <a id="charity-wallet-link" href="#" target="_blank" class="metric-card">
                     <h4>Charity Wallet (USD Value)</h4>
                     <p id="charity-wallet-usd">Loading...</p>
-                </div>
-                <div class="metric-card">
+                </a>
+                <a id="usdt-wallet-link" href="#" target="_blank" class="metric-card">
                     <h4>USDT Withdrawn</h4>
                     <p id="usdt-withdrawn">Loading...</p>
-                </div>
-                <div class="metric-card">
-                    <h4>Meals Funded</h4>
+                </a>
+                <div class="metric-card"> <h4>Meals Funded</h4>
                     <p id="meals-funded">Loading...</p>
                 </div>
-                 <div class="metric-card">
-                    <h4>Token Holders</h4>
-                    <p id="token-holders">Loading...</p>
-                </div>
+                <a id="burn-wallet-link" href="#" target="_blank" class="metric-card">
+                    <h4>Tokens Sent for Burn</h4>
+                    <p id="tokens-burned">Loading...</p>
+                </a>
             </div>
             <div class="chart-container">
                 <canvas id="priceChart"></canvas>
@@ -66,117 +65,37 @@
         <section id="roadmap" class="container">
             <h2>Our Roadmap</h2>
             <div class="roadmap-container">
-                <div class="roadmap-phase completed">
-                    <div class="phase-status">Phase 1: Foundation - COMPLETED</div>
-                    <h3>Launch & Community Building</h3>
-                    <ul>
-                        <li>✅ Fair Launch on pump.fun</li>
-                        <li>✅ Website & Socials Deployed</li>
-                        <li>✅ Initial Community Growth</li>
-                        <li>✅ Secure Charity Wallet</li>
-                    </ul>
-                </div>
-                <div class="roadmap-phase active">
-                    <div class="phase-status">Phase 2: Action - IN PROGRESS</div>
-                    <h3>First Distribution Run</h3>
-                    <ul>
-                        <li>➡️ Reach funding milestone #1</li>
-                        <li>🔲 Purchase POV Camera & Equipment</li>
-                        <li>🔲 Host First Live-Streamed Food Run</li>
-                        <li>🔲 Post All Receipts for Transparency</li>
-                    </ul>
-                </div>
-                <div class="roadmap-phase">
-                     <div class="phase-status">Phase 3: Growth - UPCOMING</div>
-                    <h3>Scale & Expand</h3>
-                    <ul>
-                        <li>🔲 Expand to Nearby Villages</li>
-                        <li>🔲 Dig wells unlike Mr Beast</li>
-                        <li>🔲 Launch Community Governance</li>
-                        <li>🔲 Expand in more Countries</li>
-                    </ul>
-                </div>
+                <div class="roadmap-phase completed"><div class="phase-status">Phase 1: Foundation - COMPLETED</div><h3>Launch & Community Building</h3><ul><li>✅ Fair Launch on pump.fun</li><li>✅ Website & Socials Deployed</li><li>✅ Initial Community Growth</li><li>✅ Secure Charity Wallet</li></ul></div>
+                <div class="roadmap-phase active"><div class="phase-status">Phase 2: Action - IN PROGRESS</div><h3>First Distribution Run</h3><ul><li>➡️ Reach funding milestone #1</li><li>🔲 Purchase POV Camera & Equipment</li><li>🔲 Host First Live-Streamed Food Run</li><li>🔲 Post All Receipts for Transparency</li></ul></div>
+                <div class="roadmap-phase"><div class="phase-status">Phase 3: Growth - UPCOMING</div><h3>Scale & Expand</h3><ul><li>🔲 Expand to New Areas of the City</li><li>🔲 Partner with Local Restaurants</li><li>🔲 Launch Community Governance</li><li>🔲 CEX Listing Applications</li></ul></div>
             </div>
         </section>
 
         <section id="funding-schedule" class="bg-dark">
-            <div class="container">
-                <h2>Funding & Transparency Schedule</h2>
-                <p class="schedule-intro">We are committed to full transparency. This schedule dictates when we convert a small percentage of the charity wallet's $FC holdings into stablecoins (USDC) to fund our operations. The estimated cost per meal is $2.00 USD.</p>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Milestone (Wallet Value)</th>
-                                <th>Action (Portion to Sell)</th>
-                                <th>Amount Withdrawn (USD)</th>
-                                <th>Meals Funded</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>$5,000</td>
-                                <td>Sell 2% of holdings</td>
-                                <td>$100</td>
-                                <td>50 Meals</td>
-                            </tr>
-                            <tr>
-                                <td>$10,000</td>
-                                <td>Sell 2% of holdings</td>
-                                <td>$200</td>
-                                <td>100 Meals</td>
-                            </tr>
-                            <tr>
-                                <td>$25,000</td>
-                                <td>Sell 1.5% of holdings</td>
-                                <td>$375</td>
-                                <td>187 Meals</td>
-                            </tr>
-                            <tr>
-                                <td>$50,000</td>
-                                <td>Sell 1.5% of holdings</td>
-                                <td>$750</td>
-                                <td>375 Meals</td>
-                            </tr>
-                            <tr>
-                                <td>$100,000</td>
-                                <td>Sell 1% of holdings</td>
-                                <td>$1,000</td>
-                                <td>500 Meals</td>
-                            </tr>
-                            <tr>
-                                <td>$250,000</td>
-                                <td>Sell 1% of holdings</td>
-                                <td>$2,500</td>
-                                <td>1,250 Meals</td>
-                            </tr>
-                        </tbody>
-                    </table>
+             <div class="container"><h2>Funding & Transparency Schedule</h2><p class="schedule-intro">We are committed to full transparency. This schedule dictates when we convert a small percentage of the charity wallet's $FC holdings into stablecoins (USDC) to fund our operations. The estimated cost per meal is $2.00 USD.</p><div class="table-container"><table><thead><tr><th>Milestone (Wallet Value)</th><th>Action (Portion to Sell)</th><th>Amount Withdrawn (USD)</th><th>Meals Funded</th></tr></thead><tbody><tr><td>$5,000</td><td>Sell 2% of holdings</td><td>$100</td><td>50 Meals</td></tr><tr><td>$10,000</td><td>Sell 2% of holdings</td><td>$200</td><td>100 Meals</td></tr><tr><td>$25,000</td><td>Sell 1.5% of holdings</td><td>$375</td><td>187 Meals</td></tr><tr><td>$50,000</td><td>Sell 1.5% of holdings</td><td>$750</td><td>375 Meals</td></tr><tr><td>$100,000</td><td>Sell 1% of holdings</td><td>$1,000</td><td>500 Meals</td></tr><tr><td>$250,000</td><td>Sell 1% of holdings</td><td>$2,500</td><td>1,250 Meals</td></tr></tbody></table></div></div>
+        </section>
+
+        <section id="tokenomics" class="container">
+            <h2>Tokenomics & Distribution</h2>
+            <div class="tokenomics-chart-container">
+                <div class="chart-wrapper">
+                    <canvas id="tokenomicsChart"></canvas>
+                </div>
+                <div class="chart-legend">
+                    <h3>Distribution Breakdown</h3>
+                    <ul>
+                        <li><span class="legend-color public"></span><strong>85% Public Launch:</strong> Fairly distributed and available on the open market.</li>
+                        <li><span class="legend-color charity"></span><strong>15% Charity Wallet:</strong> Locked and used exclusively to fund meal distributions according to our public schedule.</li>
+                    </ul>
+                    <h3>Additional Info</h3>
+                    <ul>
+                        <li><strong>Creator Fees:</strong> 10% of all fees are contributed back to the Charity Wallet.</li>
+                        <li><strong>Ownership:</strong> Contract ownership will be renounced to ensure security.</li>
+                    </ul>
                 </div>
             </div>
         </section>
-
-        <section id="tokenomics" class="container tokenomics-grid">
-            <div class="tokenomics-info">
-                <h2>Tokenomics</h2>
-                <ul>
-                    <li><strong>Ticker:</strong> $FC</li>
-                    <li><strong>Total Supply:</strong> 1,000,000,000</li>
-                    <li><strong>Charity Wallet:</strong> 10-20% (Publicly Tracked)</li>
-                    <li><strong>Creator Fees:</strong> 10% Contributed to Charity</li>
-                     <li><strong>Ownership:</strong> Contract Renounced</li>
-                </ul>
-            </div>
-            <div class="transparency-info">
-                <h2>The Transparency Promise</h2>
-                <ul>
-                    <li>All food runs are streamed live.</li>
-                    <li>Charity wallet address is public.</li>
-                    <li>All receipts are posted on Twitter.</li>
-                    <li>Community-led and fully transparent.</li>
-                </ul>
-            </div>
-        </section>
+        
     </main>
 
     <footer class="container">
@@ -191,5 +110,3 @@
     <script src="dashboard.js"></script>
 </body>
 </html>
-
-
