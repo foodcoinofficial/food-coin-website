@@ -135,3 +135,21 @@ footer { text-align: center; padding: 80px 0 40px; }
 footer h3 { font-size: 2em; margin-bottom: 10px; }
 footer p { color: var(--text-muted); margin-bottom: 30px; }
 footer .copyright { margin-top: 50px; font-size: 0.9em; }
+
+/* New Navbar Buy Button Style */
+.btn-nav {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    padding: 8px 18px; /* Slightly smaller than main buttons */
+    margin-left: 20px; /* Space from other nav links */
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.9em;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-nav:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
