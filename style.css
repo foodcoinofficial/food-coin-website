@@ -337,6 +337,12 @@ footer .copyright { margin-top: 50px; font-size: 0.9em; }
     margin-top: 5px;
 }
 
+/* Styling for the new clickable wallet cards */
+a.wallet-card {
+    text-decoration: none;
+    color: inherit;
+}
+
 
 
 
