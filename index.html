@@ -50,13 +50,58 @@
              <p class="last-updated">Last updated: <span id="last-updated">never</span></p>
         </section>
 
-        <section id="mission" class="bg-dark">
-            <div class="container">
-                <h2>Our Funding Model</h2>
-                <p class="schedule-intro">Food Coin's mission is powered by two transparent mechanisms: direct funding from The Vault and supplementary contributions from creator rewards, ensuring a sustainable path to achieving our goals.</p>
+        <section id="funding-model" class="bg-dark">
+    <div class="container">
+        <h2>Our Transparent Funding Model</h2>
+        <p class="schedule-intro">
+            Our mission is powered by a clear, sustainable, and fully transparent system. It revolves around two core public wallets: "The Vault," which holds our main charity fund, and the "Funding Wallet," which holds the cash-equivalent funds ready to be spent on meals.
+        </p>
+        <div class="wallets-grid">
+            
+            <div class="wallet-card">
+                <h3>The Vault</h3>
+                <p>
+                    <strong>Purpose:</strong> This is the project's main treasury, holding the $FC tokens that form our long-term charity fund.
+                    <br><br>
+                    <strong>How it's Used:</strong> We never spend directly from The Vault. Instead, its total USD value is monitored. When it hits a milestone on our public Funding Schedule, a small, pre-defined percentage is sold for USDC, which is then transferred to the Funding Wallet.
+                </p>
+                <div class="wallet-address">
+                    <strong>Address:</strong>
+                    <span>YOUR_CHARITY_WALLET_ADDRESS_HERE</span>
+                </div>
             </div>
+
+            <div class="wallet-card">
+                <h3>Funding Wallet</h3>
+                <p>
+                    <strong>Purpose:</strong> This wallet holds the stablecoins (USDC) that are ready to be deployed for our mission. Think of it as our operational checking account.
+                    <br><br>
+                    <strong>How it's Filled:</strong> It receives funds from two sources: 1) The USDC converted from The Vault when a milestone is hit, and 2) periodic contributions from creator rewards (10% of every $10k earned).
+                </p>
+                <div class="wallet-address">
+                    <strong>Address:</strong>
+                    <span>YOUR_USDC_WALLET_ADDRESS_HERE</span>
+                </div>
+            </div>
+
+            <div class="wallet-card">
+                <h3>Burn Wallet</h3>
+                <p>
+                    <strong>Purpose:</strong> To create a deflationary aspect for the $FC token, which helps increase the value of The Vault's holdings over time.
+                    <br><br>
+                    <strong>How it's Used:</strong> This wallet collects all $FC tokens sent by the community for burning. Periodically, its entire balance is sent to a permanent, unusable "eater" address.
+                </p>
+                <div class="wallet-address">
+                    <strong>Address:</strong>
+                    <span>YOUR_BURN_COLLECTOR_WALLET_ADDRESS_HERE</span>
+                </div>
+            </div>
+
+           </div>
+         </div>
         </section>
 
+        
         <section id="roadmap" class="container">
             <h2>Our Roadmap</h2>
             <div class="roadmap-container">
@@ -72,28 +117,7 @@
              <div class="table-container"><table><thead><tr><th>Milestone (Wallet Value)</th><th>Action (Portion to Sell)</th><th>Amount Withdrawn (USD)</th><th>Meals Funded</th></tr></thead><tbody><tr><td>$5,000</td><td>Sell 2% of holdings</td><td>$100</td><td>50 Meals</td></tr><tr><td>$10,000</td><td>Sell 2% of holdings</td><td>$200</td><td>100 Meals</td></tr><tr><td>$25,000</td><td>Sell 1.5% of holdings</td><td>$375</td><td>187 Meals</td></tr><tr><td>$50,000</td><td>Sell 1.5% of holdings</td><td>$750</td><td>375 Meals</td></tr><tr><td>$100,000</td><td>Sell 1% of holdings</td><td>$1,000</td><td>500 Meals</td></tr><tr><td>$250,000</td><td>Sell 1% of holdings</td><td>$2,500</td><td>1,250 Meals</td></tr><tr><td>$500,000</td><td>Sell 0.75% of holdings</td><td>$3,750</td><td>1,875 Meals</td></tr><tr><td>$1,000,000</td><td>Sell 0.5% of holdings</td><td>$5,000</td><td>2,500 Meals</td></tr></tbody></table></div></div>
         </section>
         
-        <section id="wallets" class="container">
-            <h2>Our Transparent Wallets</h2>
-             <p class="schedule-intro">Every core wallet in our project is public. You can use the addresses below to verify all on-chain activity using a block explorer like Solscan.</p>
-            <div class="wallets-grid">
-                <div class="wallet-card">
-                    <h3>The Vault</h3>
-                    <p>This is the project's main treasury, holding the $FC tokens dedicated to our mission. The USD value of this wallet is what we use to track our funding milestones.</p>
-                    <div class="wallet-address"><strong>Address:</strong><span>2pWyMq4eCswkTPyATfd27wJoYv1dVyAmEYDHdnycrGkq</span></div>
-                </div>
-                <div class="wallet-card">
-                    <h3>Funding Wallet</h3>
-                    <p>This wallet holds the stablecoins (USDC) that have been withdrawn from The Vault, as well as contributions from creator rewards. Funds here are ready for food purchases.</p>
-                    <div class="wallet-address"><strong>Address:</strong><span>F9HVcBrGY5WLDWWhEDVMB1r1NPfYSPiMF3rBwV6ysYsG</span></div>
-                </div>
-                <div class="wallet-card">
-                    <h3>Burn Wallet</h3>
-                    <p>This wallet collects all $FC tokens sent by the community for burning. Periodically, the entire balance is sent to a permanent, unusable address.</p>
-                    <div class="wallet-address"><strong>Address:</strong><span>GoMpswts8ZEShZyCLd8Y93nsFgwS7QqgSd6au27qQyma</span></div>
-                </div>
-            </div>
-        </section>
-
+        
         <section id="tokenomics" class="container">
             <h2>Tokenomics & Distribution</h2>
             <div class="tokenomics-chart-container">
@@ -127,3 +151,4 @@
     <script src="dashboard.js"></script>
 </body>
 </html>
+
