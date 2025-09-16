@@ -157,7 +157,7 @@ const renderTokenomicsChart = () => {
                 labels: ['Public Launch', 'Charity Wallet'],
                 datasets: [{
                     data: [85, 15], // Corresponds to 85% and 15%
-                    backgroundColor: ['#FFFFFF', '#f39c12'],
+                    backgroundColor: ['#FFFFFF', 'hsl(158, 100%, 50%)'],
                     borderColor: ['#1E1E1E'],
                     borderWidth: 2
                 }]
@@ -201,4 +201,5 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchAllData();
     setInterval(fetchAllData, 30000);
 });
+
 
