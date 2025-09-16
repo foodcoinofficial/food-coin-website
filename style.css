@@ -77,7 +77,7 @@ nav .container {
 
 /* Style for the new logo in the navbar */
 .nav-brand img {
-    height: 35px; /* You can adjust this value to make the logo bigger or smaller */
+    height: 55px; /* You can adjust this value to make the logo bigger or smaller */
     width: auto;  /* This keeps the logo's proportions correct */
     display: block; /* Helps with alignment */
 }
@@ -289,4 +289,5 @@ footer .copyright { margin-top: 50px; font-size: 0.9em; }
     transform: translateY(-2px);
     box-shadow: 0 3px 10px rgba(0, 255, 163, 0.2);
 }
+
 
