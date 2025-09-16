@@ -1,33 +1,156 @@
 :root {
-    --primary-color: #f39c12;
-    --background-color: #121212;
-    --surface-color: #1E1E1E;
-    --text-color: #f0f0f0;
-    --text-muted: #888;
-    --border-color: #333;
+    --primary-color: #00FFA3; /* pump.fun Neon Green */
+    --secondary-color: #FF005C; /* pump.fun Pink/Red */
+    --background-color: #111119; /* pump.fun Dark Purple/Black */
+    --surface-color: #1A1A24; /* pump.fun Lighter Surface */
+    --text-color: #FFFFFF;
+    --text-muted: #8899A9;
+    --border-color: #2A2A38;
 }
 
-/* ... (all previous styles from body to hero section remain the same) ... */
-body { margin: 0; font-family: 'Inter', sans-serif; background-color: var(--background-color); color: var(--text-color); line-height: 1.6; }
-.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-h1, h2, h3 { font-weight: 700; }
-h1, h2 { background: linear-gradient(90deg, var(--primary-color), #ffffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-fill-color: transparent; }
-h2 { font-size: 2.5em; text-align: center; margin-bottom: 50px; letter-spacing: -1px; }
-section { padding: 80px 0; }
-.bg-dark { background-color: var(--surface-color); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
-nav { background-color: rgba(18, 18, 18, 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); padding: 15px 0; position: fixed; width: 100%; z-index: 1000; }
-nav .container { display: flex; justify-content: space-between; align-items: center; }
-.nav-brand { font-weight: 700; font-size: 1.2em; }
-.nav-links a { color: var(--text-color); text-decoration: none; margin-left: 25px; font-weight: 400; transition: color 0.3s ease; }
-.nav-links a:hover { color: var(--primary-color); }
-.hero { padding-top: 180px; padding-bottom: 120px; text-align: center; background: radial-gradient(circle at 50% 30%, rgba(243, 156, 18, 0.1), transparent 50%); }
-.hero h1 { font-size: 4em; font-weight: 900; margin-bottom: 10px; letter-spacing: -2px; }
-.hero .sub-headline { font-size: 1.2em; color: var(--text-muted); max-width: 600px; margin: 0 auto 30px; }
-.cta-buttons { display: flex; justify-content: center; gap: 15px; }
-.btn { padding: 12px 28px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1em; transition: transform 0.2s ease, box-shadow 0.2s ease; }
-.btn-primary { background-color: var(--primary-color); color: #121212; }
-.btn:hover { transform: translateY(-3px); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-.btn-secondary { background-color: transparent; color: var(--text-color); border: 1px solid var(--border-color); }
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+}
+
+h1, h2 {
+    background: linear-gradient(90deg, var(--primary-color), #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+h2 {
+    font-size: 2.5em;
+    text-align: center;
+    margin-bottom: 50px;
+    letter-spacing: -1px;
+}
+
+section {
+    padding: 80px 0;
+}
+
+.bg-dark {
+    background-color: var(--surface-color);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+
+/* Navigation */
+nav {
+    background-color: rgba(17, 17, 25, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-brand {
+    font-weight: 700;
+    font-size: 1.2em;
+    color: var(--primary-color);
+}
+
+.nav-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    margin-left: 25px;
+    font-weight: 400;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+/* Hero Section */
+.hero {
+    padding-top: 180px;
+    padding-bottom: 120px;
+    text-align: center;
+    background: radial-gradient(circle at 50% 30%, rgba(0, 255, 163, 0.08), transparent 50%);
+}
+
+.hero h1 {
+    font-size: 4em;
+    font-weight: 900;
+    margin-bottom: 10px;
+    letter-spacing: -2px;
+}
+
+.hero .sub-headline {
+    font-size: 1.2em;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto 30px;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btn {
+    padding: 12px 28px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1em;
+    transition: all 0.2s ease;
+    border: 1px solid var(--primary-color);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: #111119;
+    box-shadow: 0 0 15px rgba(0, 255, 163, 0.3);
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 25px rgba(0, 255, 163, 0.5);
+}
+
+/* UPDATED .btn-secondary (Normal State) */
+.btn-secondary {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+/* UPDATED .btn-secondary (Hover State) */
+.btn-secondary:hover {
+    background-color: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    box-shadow: none;
+}
+
 
 /* Dashboard */
 .dashboard-grid {
@@ -40,11 +163,11 @@ nav .container { display: flex; justify-content: space-between; align-items: cen
 .metric-card {
     background-color: var(--surface-color);
     padding: 25px;
-    border-radius: 12px;
+    border-radius: 8px;
     border: 1px solid var(--border-color);
-    text-decoration: none; /* For clickable cards */
-    color: var(--text-color); /* For clickable cards */
-    display: block; /* For clickable cards */
+    text-decoration: none;
+    color: var(--text-color);
+    display: block;
     transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
@@ -68,14 +191,14 @@ nav .container { display: flex; justify-content: space-between; align-items: cen
     color: var(--primary-color);
 }
 
-.chart-container { background-color: var(--surface-color); border-radius: 12px; border: 1px solid var(--border-color); padding: 20px; }
+.chart-container { background-color: var(--surface-color); border-radius: 8px; border: 1px solid var(--border-color); padding: 20px; }
 .last-updated { text-align: center; margin-top: 20px; font-size: 0.9em; color: var(--text-muted); }
 
 /* Roadmap */
 #roadmap { margin-bottom: 40px; }
 .roadmap-container { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; }
-.roadmap-phase { background-color: var(--surface-color); border: 1px solid var(--border-color); border-radius: 12px; padding: 30px; width: 30%; min-width: 280px; }
-.roadmap-phase h3 { margin-top: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; margin-bottom: 20px; }
+.roadmap-phase { background-color: var(--surface-color); border: 1px solid var(--border-color); border-radius: 8px; padding: 30px; width: 30%; min-width: 280px; }
+.roadmap-phase h3 { margin-top: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; margin-bottom: 20px; color: var(--text-color); }
 .phase-status { font-size: 0.8em; font-weight: 700; padding: 5px 10px; border-radius: 20px; background-color: #333; display: inline-block; margin-bottom: 20px; }
 .roadmap-phase.completed .phase-status { background-color: #27ae60; color: #fff; }
 .roadmap-phase.active .phase-status { background-color: var(--primary-color); color: #121212; }
@@ -85,11 +208,13 @@ nav .container { display: flex; justify-content: space-between; align-items: cen
 /* Funding Schedule Table */
 .schedule-intro { text-align: center; max-width: 700px; margin: -20px auto 40px; color: var(--text-muted); }
 .table-container { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; background-color: var(--surface-color); border-radius: 12px; overflow: hidden; }
+table { width: 100%; border-collapse: collapse; background-color: var(--surface-color); border-radius: 8px; overflow: hidden; }
 th, td { padding: 15px 20px; text-align: left; border-bottom: 1px solid var(--border-color); }
-thead { background-color: #2a2a2a; }
+thead { background-color: #2A2A38; }
 th { font-weight: 700; color: var(--text-muted); text-transform: uppercase; font-size: 0.8em; }
 tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background-color: #2A2A38; }
+
 
 /* Tokenomics Pie Chart Section */
 .tokenomics-chart-container {
@@ -109,6 +234,7 @@ tbody tr:last-child td { border-bottom: none; }
 }
 .chart-legend h3 {
     text-align: left;
+    color: var(--text-color);
 }
 .chart-legend ul {
     list-style-type: none;
@@ -127,32 +253,32 @@ tbody tr:last-child td { border-bottom: none; }
     margin-right: 15px;
     display: inline-block;
 }
-.legend-color.public { background-color: #ffffff; }
+.legend-color.public { background-color: var(--text-color); }
 .legend-color.charity { background-color: var(--primary-color); }
 
 /* Footer */
-footer { text-align: center; padding: 80px 0 40px; }
+footer { text-align: center; padding: 80px 0 40px; border-top: 1px solid var(--border-color); }
 footer h3 { font-size: 2em; margin-bottom: 10px; }
 footer p { color: var(--text-muted); margin-bottom: 30px; }
 footer .copyright { margin-top: 50px; font-size: 0.9em; }
 
-/* New Navbar Buy Button Style */
-.btn-nav {
+/* UPDATED Navbar Buy Button Style */
+.nav-links .btn-nav {
     background-color: var(--primary-color);
-    color: var(--background-color);
-    padding: 8px 18px; /* Slightly smaller than main buttons */
-    margin-left: 20px; /* Space from other nav links */
+    color: #111119 !important; /* Made color explicit and important */
+    padding: 8px 18px;
+    margin-left: 20px;
     border-radius: 6px;
     font-weight: 700;
     font-size: 0.9em;
     text-decoration: none;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: all 0.2s ease;
+    border: 1px solid var(--primary-color);
 }
 
-.btn-nav:hover {
-    background-color: #121212; /* Using our dark background color */
-    color: black;
+.nav-links .btn-nav:hover {
+    background-color: #121212;
+    color: white !important; /* Ensure hover color is also prioritized */
     transform: translateY(-2px);
-    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 3px 10px rgba(0, 255, 163, 0.2);
 }
-
