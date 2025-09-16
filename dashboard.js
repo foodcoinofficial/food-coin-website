@@ -2,9 +2,9 @@
 const CONFIG = {
     pairAddress: 'YOUR_TOKEN_PAIR_ADDRESS_HERE', 
     tokenMintAddress: 'YOUR_TOKEN_MINT_ADDRESS_HERE',
-    charityWalletAddress: 'YOUR_CHARITY_WALLET_ADDRESS_HERE',
-    stablecoinWalletAddress: 'YOUR_USDC_WALLET_ADDRESS_HERE',
-    burnCollectorAddress: 'YOUR_BURN_COLLECTOR_WALLET_ADDRESS_HERE',
+    charityWalletAddress: '2pWyMq4eCswkTPyATfd27wJoYv1dVyAmEYDHdnycrGkq',
+    stablecoinWalletAddress: 'F9HVcBrGY5WLDWWhEDVMB1r1NPfYSPiMF3rBwV6ysYsG',
+    burnCollectorAddress: 'GoMpswts8ZEShZyCLd8Y93nsFgwS7QqgSd6au27qQyma',
     usdcMintAddress: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v',
     solanaRpcUrl: '/api/rpc-proxy',
     
@@ -201,5 +201,6 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchAllData();
     setInterval(fetchAllData, 30000);
 });
+
 
 
