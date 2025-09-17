@@ -320,11 +320,10 @@ footer .copyright { margin-top: 50px; font-size: 0.9em; }
 }
 
 .wallet-address {
-    margin-top: 20px;
-    padding-top: 15px;
+    margin-top: auto; /* Pushes the button to the bottom */
+    padding-top: 20px;
     border-top: 1px solid var(--border-color);
-    font-size: 0.9em;
-    word-wrap: break-word; /* Ensures long addresses don't break the layout */
+    text-align: center; /* This is the line that centers the button */
 }
 
 .wallet-address strong {
@@ -342,6 +341,7 @@ a.wallet-card {
     text-decoration: none;
     color: inherit;
 }
+
 
 
 
