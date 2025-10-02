@@ -170,8 +170,19 @@
         <p class="copyright">&copy; 2025 Food Coin. All Rights Reserved.</p>
     </footer>
     <script src="dashboard.js"></script>
+
+    <script>
+    const hamburger = document.querySelector('.hamburger-menu');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+</script>
+    
 </body>
 </html>
+
 
 
 
