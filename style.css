@@ -359,6 +359,57 @@ a.wallet-card {
   height: 100%;
 }
 
+/* ========== MOBILE NAVIGATION STYLES ========== */
+
+/* Style for the hamburger button itself */
+.hamburger-menu {
+    display: none; /* Hidden by default on desktop */
+    flex-direction: column;
+    justify-content: space-around;
+    width: 2rem;
+    height: 2rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10;
+}
+
+.hamburger-menu .bar {
+    display: block;
+    width: 2rem;
+    height: 3px;
+    background-color: #00FFA3; /* Your brand's green color */
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Media query for mobile screens */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none; /* Hide the links by default on mobile */
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 60px; /* Adjust as needed based on your navbar height */
+        left: 0;
+        background-color: #111119; /* Your dark background color */
+        text-align: center;
+    }
+
+    .nav-links.active {
+        display: flex; /* Show the menu when active */
+    }
+
+    .nav-links a {
+        padding: 1rem 0;
+        width: 100%;
+    }
+
+    .hamburger-menu {
+        display: flex; /* Show the hamburger button on mobile */
+    }
+}
 
 
 
