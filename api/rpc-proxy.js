@@ -1,38 +1,49 @@
-// This is a Vercel Serverless Function that runs on the backend.
-// It securely forwards requests from your website to Helius.
+// File: /api/rpc-proxy.js
+// This is the correct version that works with your dashboard.js
 
-export default async function handler(request, response) {
-    // Only allow POST requests, which is what the Solana RPC uses
-    if (request.method !== 'POST') {
-        return response.status(405).json({ error: 'Method Not Allowed' });
+export default async function handler(req, res) {
+    if (req.method !== 'POST') {
+        return res.status(405).json({ error: 'Method Not Allowed' });
     }
 
-    // Get the secret Helius URL from the Vercel environment variables.
-    // This process.env.HELIUS_RPC_URL is NEVER exposed to the public.
-    const heliusRpcUrl = process.env.HELIUS_RPC_URL;
-
-    if (!heliusRpcUrl) {
-        return response.status(500).json({ error: 'RPC URL not configured on the server.' });
+    // This MUST match the name in your Vercel settings
+    const HELIUS_API_KEY = process.env.HELIUS_API_KEY;
+    if (!HELIUS_API_KEY) {
+        return res.status(500).json({ error: 'API key not configured' });
     }
+
+    const { charityWallet, stablecoinWallet, burnWallet, fcMint, usdcMint } = req.body;
 
     try {
-        // Forward the exact request body from our front-end (dashboard.js) to Helius
-        const heliusResponse = await fetch(heliusRpcUrl, {
+        const response = await fetch(HELIUS_API_KEY, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(request.body),
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                jsonrpc: '2.0',
+                id: 'food-coin-dashboard',
+                method: 'getTokenAccounts',
+                params: {
+                    wallets: [charityWallet, stablecoinWallet, burnWallet],
+                    mint: [fcMint, usdcMint]
+                },
+            }),
         });
 
-        // Parse the JSON response from Helius
-        const data = await heliusResponse.json();
+        if (!response.ok) {
+            throw new Error(`Helius RPC request failed with status ${response.status}`);
+        }
 
-        // Send the Helius response back to our front-end
-        response.status(heliusResponse.status).json(data);
+        const data = await response.json();
+        const balances = data.result;
+
+        res.status(200).json({
+            charityBalance: balances[charityWallet][fcMint] || 0,
+            stablecoinBalance: balances[stablecoinWallet][usdcMint] || 0,
+            burnBalance: balances[burnWallet][fcMint] || 0
+        });
 
     } catch (error) {
-        console.error('RPC Proxy Error:', error);
-        response.status(500).json({ error: 'An internal server error occurred.' });
+        console.error('Proxy Error:', error);
+        res.status(500).json({ error: 'Failed to fetch wallet balances' });
     }
 }
