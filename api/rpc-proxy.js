@@ -1,14 +1,12 @@
-// This is a Vercel Serverless Function that runs on the backend.
-// It securely forwards requests from your website to Helius.
+// File: /api/rpc-proxy.js
+// RESTORE TO THIS ORIGINAL VERSION
 
 export default async function handler(request, response) {
-    // Only allow POST requests, which is what the Solana RPC uses
     if (request.method !== 'POST') {
         return response.status(405).json({ error: 'Method Not Allowed' });
     }
 
-    // Get the secret Helius URL from the Vercel environment variables.
-    // This process.env.HELIUS_RPC_URL is NEVER exposed to the public.
+    // Your original file used HELIUS_RPC_URL, let's stick to that for clarity.
     const heliusRpcUrl = process.env.HELIUS_RPC_URL;
 
     if (!heliusRpcUrl) {
@@ -16,19 +14,13 @@ export default async function handler(request, response) {
     }
 
     try {
-        // Forward the exact request body from our front-end (dashboard.js) to Helius
         const heliusResponse = await fetch(heliusRpcUrl, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(request.body),
         });
 
-        // Parse the JSON response from Helius
         const data = await heliusResponse.json();
-
-        // Send the Helius response back to our front-end
         response.status(heliusResponse.status).json(data);
 
     } catch (error) {
