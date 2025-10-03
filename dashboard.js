@@ -1,206 +1,209 @@
-// --- CONFIGURATION ---
+// Food Coin ($FC) Live Dashboard Script
+
+// ========== CONFIGURATION START ==========
+// This section now contains your live addresses.
 const CONFIG = {
-    pairAddress: 'YOUR_TOKEN_PAIR_ADDRESS_HERE', 
-    tokenMintAddress: 'YOUR_TOKEN_MINT_ADDRESS_HERE',
+    // Your RPC endpoint for fetching wallet balances (using the Vercel proxy)
+    heliusApiUrl: '/api/rpc-proxy',
+
+    // Your new, live token and pair addresses
+    tokenMintAddress: '8pbJTN5uh9nD47vJkjpRnyvdszAe245RSh2XVz2Xpump',
+    pairAddress: 'DbwtBT43pP3NVDktfvuY1rnQiBofZMEHsmskcTqYStVa',
+
+    // Your project's core wallet addresses
     charityWalletAddress: '2pWyMq4eCswkTPyATfd27wJoYv1dVyAmEYDHdnycrGkq',
     stablecoinWalletAddress: 'F9HVcBrGY5WLDWWhEDVMB1r1NPfYSPiMF3rBwV6ysYsG',
     burnCollectorAddress: 'GoMpswts8ZEShZyCLd8Y93nsFgwS7QqgSd6au27qQyma',
-    usdcMintAddress: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v',
-    solanaRpcUrl: '/api/rpc-proxy',
+
+    // The token address for USDC, used to get the Funding Wallet balance
+    usdcMintAddress: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v'
+};
+// ========== CONFIGURATION END ==========
+
+
+// --- Main Function to Update Dashboard ---
+async function updateDashboard() {
+    try {
+        // Fetch all data in parallel
+        const [walletData, dexData] = await Promise.all([
+            fetchWalletBalances(),
+            fetchDexScreenerData()
+        ]);
+
+        // Update UI with wallet data
+        if (walletData) {
+            updateWalletUI(walletData);
+        }
+
+        // Update UI with market data
+        if (dexData) {
+            updateMarketUI(dexData);
+            updatePriceChart(dexData.priceHistory);
+        }
+        
+        // Update the "last updated" timestamp
+        document.getElementById('last-updated').textContent = new Date().toLocaleTimeString();
+
+    } catch (error) {
+        console.error("Error updating dashboard:", error);
+    }
+}
+
+
+// --- Data Fetching Functions ---
+
+async function fetchWalletBalances() {
+    try {
+        const response = await fetch(CONFIG.heliusApiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                charityWallet: CONFIG.charityWalletAddress,
+                stablecoinWallet: CONFIG.stablecoinWalletAddress,
+                burnWallet: CONFIG.burnCollectorAddress,
+                fcMint: CONFIG.tokenMintAddress,
+                usdcMint: CONFIG.usdcMintAddress
+            })
+        });
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching wallet balances:', error);
+        return null;
+    }
+}
+
+async function fetchDexScreenerData() {
+    try {
+        const url = `https://api.dexscreener.com/latest/dex/pairs/solana/${CONFIG.pairAddress}`;
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('Failed to fetch from DexScreener');
+        const data = await response.json();
+        
+        const pair = data.pairs[0];
+        if (!pair) return null;
+
+        return {
+            priceUsd: parseFloat(pair.priceUsd),
+            liquidity: parseFloat(pair.liquidity.usd),
+            volume24h: parseFloat(pair.volume.h24),
+            marketCap: parseFloat(pair.fdv),
+            priceHistory: { // For the chart
+                m5: pair.priceChange.m5,
+                h1: pair.priceChange.h1,
+                h6: pair.priceChange.h6,
+                h24: pair.priceChange.h24
+            }
+        };
+    } catch (error) {
+        console.error('Error fetching DexScreener data:', error);
+        return null;
+    }
+}
+
+
+// --- UI Update Functions ---
+
+function updateWalletUI(data) {
+    const { charityBalance, stablecoinBalance, burnBalance } = data;
     
-    // ** MANUAL UPDATE AREA **
-    totalMealsFunded: 0,
+    const charityWalletUsdEl = document.getElementById('charity-wallet-usd');
+    const usdtWithdrawnEl = document.getElementById('usdt-withdrawn');
+    const mealsFundedEl = document.getElementById('meals-funded');
+    const tokensBurnedEl = document.getElementById('tokens-burned');
+
+    // Assuming price is available globally or passed in
+    const price = window.currentPrice || 0;
+    const charityValue = charityBalance * price;
+
+    charityWalletUsdEl.textContent = `$${charityValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    usdtWithdrawnEl.textContent = `${stablecoinBalance.toLocaleString()} USDC`;
+    mealsFundedEl.textContent = (stablecoinBalance * 0.5).toLocaleString(); // Assuming $2 per meal -> 0.5 meals per USDC
+    tokensBurnedEl.textContent = `${burnBalance.toLocaleString()} $FC`;
     
-    // Links for your buttons in the navbar and hero
-    pumpFunLink: 'YOUR_PUMP_FUN_LINK', // Fill this in!
-    twitterLink: 'https://x.com/foodcoinsolana' // Fill this in!
-};
-// --------------------
+    // Update wallet links
+    document.getElementById('charity-wallet-link').href = `https://solscan.io/account/${CONFIG.charityWalletAddress}`;
+    document.getElementById('usdt-wallet-link').href = `https://solscan.io/account/${CONFIG.stablecoinWalletAddress}`;
+    document.getElementById('burn-wallet-link').href = `https://solscan.io/account/${CONFIG.burnCollectorAddress}`;
+}
 
-// --- GLOBAL STATE ---
-let tokenPrice = 0;
+function updateMarketUI(data) {
+    window.currentPrice = data.priceUsd; // Store price for wallet calculations
+    // Further UI updates for price, liquidity etc. can be added here
+}
 
-// --- API FETCHING FUNCTIONS ---
-const updateMarketStats = async () => {
-    if (CONFIG.pairAddress === 'YOUR_TOKEN_PAIR_ADDRESS_HERE') {
-        document.getElementById('charity-wallet-usd').textContent = 'Not Launched';
-        return false;
-    }
-    try {
-        const response = await fetch(`https://api.dexscreener.com/latest/dex/pairs/solana/${CONFIG.pairAddress}`);
-        const data = await response.json();
-        if (data.pair) {
-            tokenPrice = parseFloat(data.pair.priceUsd);
-            return true;
-        }
-        return false;
-    } catch (error) {
-        console.error('Error fetching token price:', error);
-        return false;
-    }
-};
 
-const updateCharityWalletValue = async () => {
-    if (!tokenPrice) return;
-    try {
-        const response = await fetch(CONFIG.solanaRpcUrl, {
-            method: 'POST', headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                jsonrpc: '2.0', id: 1, method: 'getTokenAccountsByOwner',
-                params: [ CONFIG.charityWalletAddress, { mint: CONFIG.tokenMintAddress }, { encoding: 'jsonParsed' } ]
-            })
-        });
-        const data = await response.json();
-        let balance = 0;
-        if (data.result?.value[0]) {
-            balance = data.result.value[0].account.data.parsed.info.tokenAmount.uiAmount;
-        }
-        const totalValue = balance * tokenPrice;
-        document.getElementById('charity-wallet-usd').textContent = `$${Math.round(totalValue).toLocaleString()}`;
-    } catch (error) {
-        console.error('Error fetching charity wallet balance:', error);
-    }
-};
+// --- Charting Function ---
+let priceChart = null;
+function updatePriceChart(history) {
+    const ctx = document.getElementById('priceChart').getContext('2d');
+    const labels = ['24h ago', '6h ago', '1h ago', '5m ago', 'Current'];
+    const price = window.currentPrice || 0;
 
-const updateUsdtWithdrawn = async () => {
-    if (CONFIG.stablecoinWalletAddress === 'YOUR_USDC_WALLET_ADDRESS_HERE') {
-        document.getElementById('usdt-withdrawn').textContent = 'Awaiting Milestone';
-        return;
-    }
-    try {
-        const response = await fetch(CONFIG.solanaRpcUrl, {
-            method: 'POST', headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                jsonrpc: '2.0', id: 1, method: 'getTokenAccountsByOwner',
-                params: [ CONFIG.stablecoinWalletAddress, { mint: CONFIG.usdcMintAddress }, { encoding: 'jsonParsed' } ]
-            })
-        });
-        const data = await response.json();
-        let usdcBalance = 0;
-        if (data.result?.value[0]) {
-            usdcBalance = data.result.value[0].account.data.parsed.info.tokenAmount.uiAmount;
-        }
-        document.getElementById('usdt-withdrawn').textContent = `$${Math.round(usdcBalance).toLocaleString()}`;
-    } catch (error) {
-        console.error('Error fetching stablecoin balance:', error);
-    }
-};
+    // Calculate historical prices from percentage changes
+    const price24h = price / (1 + history.h24 / 100);
+    const price6h = price / (1 + history.h6 / 100);
+    const price1h = price / (1 + history.h1 / 100);
+    const price5m = price / (1 + history.m5 / 100);
 
-const updateBurnWalletBalance = async () => {
-    if (CONFIG.burnCollectorAddress === 'YOUR_BURN_COLLECTOR_WALLET_ADDRESS_HERE') {
-        document.getElementById('tokens-burned').textContent = 'Not Active';
-        return;
-    }
-    try {
-        const response = await fetch(CONFIG.solanaRpcUrl, {
-            method: 'POST', headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                jsonrpc: '2.0', id: 1, method: 'getTokenAccountsByOwner',
-                params: [ CONFIG.burnCollectorAddress, { mint: CONFIG.tokenMintAddress }, { encoding: 'jsonParsed' } ]
-            })
-        });
-        const data = await response.json();
-        let balance = 0;
-        if (data.result?.value[0]) {
-            balance = data.result.value[0].account.data.parsed.info.tokenAmount.uiAmount;
-        }
-        document.getElementById('tokens-burned').textContent = Math.floor(balance).toLocaleString();
-    } catch (error) {
-        console.error('Error fetching burn wallet balance:', error);
-    }
-};
-
-// --- STATIC & MANUAL UPDATE FUNCTIONS ---
-const updateManualStats = () => {
-    document.getElementById('meals-funded').textContent = CONFIG.totalMealsFunded.toLocaleString();
-};
-
-const updateTimestamp = () => {
-    document.getElementById('last-updated').textContent = new Date().toLocaleTimeString();
-};
-
-const setupLinks = () => {
-    // Dashboard Wallet Links
-    if (CONFIG.charityWalletAddress !== 'YOUR_CHARITY_WALLET_ADDRESS_HERE') {
-        document.getElementById('charity-wallet-link').href = `https://solscan.io/account/${CONFIG.charityWalletAddress}`;
-    }
-    if (CONFIG.stablecoinWalletAddress !== 'YOUR_USDC_WALLET_ADDRESS_HERE') {
-        document.getElementById('usdt-wallet-link').href = `https://solscan.io/account/${CONFIG.stablecoinWalletAddress}`;
-    }
-    if (CONFIG.burnCollectorAddress !== 'YOUR_BURN_COLLECTOR_WALLET_ADDRESS_HERE') {
-        document.getElementById('burn-wallet-link').href = `https://solscan.io/account/${CONFIG.burnCollectorAddress}`;
-    }
-
-    // Navbar and Hero Button Links
-    const pumpFunButtons = document.querySelectorAll('a[href="YOUR_PUMP_FUN_LINK"]');
-    pumpFunButtons.forEach(btn => {
-        if (CONFIG.pumpFunLink !== 'YOUR_PUMP_FUN_LINK') {
-            btn.href = CONFIG.pumpFunLink;
-        }
-    });
-
-    const twitterButtons = document.querySelectorAll('a[href="https://x.com/foodcoinsolana"]');
-    twitterButtons.forEach(btn => {
-        if (CONFIG.twitterLink !== 'https://x.com/foodcoinsolana') {
-            btn.href = CONFIG.twitterLink;
-        }
-    });
-};
-
-// --- CHART RENDERING FUNCTION ---
-const renderTokenomicsChart = () => {
-    const ctx = document.getElementById('tokenomicsChart');
-    if (ctx) { // Check if the canvas element exists before trying to render
-        new Chart(ctx.getContext('2d'), {
-            type: 'doughnut',
+    const dataPoints = [price24h, price6h, price1h, price5m, price];
+    
+    if (priceChart) {
+        priceChart.data.datasets[0].data = dataPoints;
+        priceChart.update();
+    } else {
+        priceChart = new Chart(ctx, {
+            type: 'line',
             data: {
-                labels: ['Public Launch', 'Charity Wallet'],
+                labels: labels,
                 datasets: [{
-                    data: [85, 15], // Corresponds to 85% and 15%
-                    backgroundColor: ['#FFFFFF', 'hsl(158, 100%, 50%)'],
-                    borderColor: ['#1E1E1E'],
-                    borderWidth: 2
+                    label: '$FC Price (USD)',
+                    data: dataPoints,
+                    borderColor: '#00FFA3',
+                    backgroundColor: 'rgba(0, 255, 163, 0.1)',
+                    fill: true,
+                    tension: 0.1
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                cutout: '70%',
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return `${context.label}: ${context.raw}%`;
-                            }
-                        }
-                    }
-                }
+                scales: {
+                    y: { ticks: { color: 'white' } },
+                    x: { ticks: { color: 'white' } }
+                },
+                plugins: { legend: { labels: { color: 'white' } } }
             }
         });
     }
-};
-
-// --- MAIN EXECUTION ---
-const fetchAllData = async () => {
-    const priceAvailable = await updateMarketStats();
-    if (priceAvailable) {
-        updateCharityWalletValue();
+}
+// Placeholder for the tokenomics chart
+const tokenomicsCtx = document.getElementById('tokenomicsChart').getContext('2d');
+new Chart(tokenomicsCtx, {
+    type: 'doughnut',
+    data: {
+        labels: ['Public Launch', 'The Vault'],
+        datasets: [{
+            data: [85, 15],
+            backgroundColor: ['#00FFA3', '#4E4E6A'],
+            borderColor: '#111119',
+            borderWidth: 4
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false
+            }
+        }
     }
-    updateUsdtWithdrawn();
-    updateBurnWalletBalance();
-    updateManualStats();
-    updateTimestamp();
-};
-
-document.addEventListener('DOMContentLoaded', () => {
-    setupLinks();
-    renderTokenomicsChart(); // This should now render correctly
-    fetchAllData();
-    setInterval(fetchAllData, 30000);
 });
 
 
-
+// --- Initial Load and Interval ---
+document.addEventListener('DOMContentLoaded', () => {
+    updateDashboard(); // Initial call
+    setInterval(updateDashboard, 30000); // Update every 30 seconds
+});
