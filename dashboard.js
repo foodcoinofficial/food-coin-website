@@ -102,6 +102,7 @@ function updateWalletUI(data) {
 
 // Chart code is removed as it's replaced by the DexScreener embed.
 document.addEventListener('DOMContentLoaded', () => {
-    updateDashboard();
+    setTimeout(updateDashboard, 500); // Add 500ms delay
     setInterval(updateDashboard, 30000);
 });
+
