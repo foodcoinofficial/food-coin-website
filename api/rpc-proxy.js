@@ -7,7 +7,7 @@ export default async function handler(request, response) {
     }
 
     // Your original file used HELIUS_RPC_URL, let's stick to that for clarity.
-    const heliusRpcUrl = process.env.HELIUS_RPC_URL;
+    const heliusRpcUrl = 'https://mainnet.helius-rpc.com/?api-key=a817119d-9746-4bec-8ee4-6dc2ecb4eede'; //temporary test
 
     if (!heliusRpcUrl) {
         return response.status(500).json({ error: 'RPC URL not configured on the server.' });
@@ -28,3 +28,4 @@ export default async function handler(request, response) {
         response.status(500).json({ error: 'An internal server error occurred.' });
     }
 }
+
