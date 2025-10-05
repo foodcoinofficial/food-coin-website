@@ -92,7 +92,7 @@ function updateWalletUI(data) {
 
     document.getElementById('charity-wallet-usd').textContent = `$${charityValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     document.getElementById('usdt-withdrawn').textContent = `${(data.stablecoinBalance || 0).toLocaleString()} USDC`;
-    document.getElementById('meals-funded').textContent = ((data.stablecoinBalance || 0) * 0.5).toLocaleString();
+    document.getElementById('meals-funded').textContent = ((data.stablecoinBalance || 0) * 0.75).toLocaleString();
     document.getElementById('tokens-burned').textContent = `${(data.burnBalance || 0).toLocaleString()} $FC`;
 
     document.getElementById('charity-wallet-link').href = `https://solscan.io/account/${CONFIG.charityWalletAddress}`;
@@ -105,4 +105,5 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(updateDashboard, 500); // Add 500ms delay
     setInterval(updateDashboard, 30000);
 });
+
 
